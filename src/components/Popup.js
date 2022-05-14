@@ -5,11 +5,12 @@ const Popup = ({correctLetters, wrongLetters, selectedWord, setPlayable, playAga
     let finalMessage = '';
     let finalMessageRevealWord = '';
     let playable = true;
+    let status = checkWin(correctLetters, wrongLetters, selectedWord);
 
-    if (checkWin(correctLetters, wrongLetters, selectedWord) == 'win') {
+    if (status == 'win') {
         finalMessage = 'Congratulations! you won!';
         playable = false;
-    } else if (checkWin(correctLetters, wrongLetters, selectedWord) == 'lose') {
+    } else if (status == 'lose') {
         finalMessage = 'Unfortunately you lost.';
         finalMessageRevealWord = `...the word was ${selectedWord}`;
         playable = false;
