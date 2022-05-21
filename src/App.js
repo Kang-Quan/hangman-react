@@ -24,11 +24,7 @@ function App() {
     const [correctLetters, setCorrectLetters] = useState([]);
     const [wrongLetters, setWrongLetters] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
-    const [button, setButton] = useState({
-        counter: "A"
-    });
-  
-  
+    
     useEffect(() => {
 	    const handleKeyDown = event => {
 	        const { key, keyCode } = event;
@@ -58,12 +54,19 @@ function App() {
 	    }; // clean up event listener, only allow 1 event listener to run to preserve performance
     }, [correctLetters, wrongLetters, playable]); // useEffect funtion is only called when these variables are updated
 
+    function playAgain() {
+	    setPlayable(true);
 
-    //this useEffect is for the button
-    useEffect(() => {
-        if ((button.counter.charCodeAt(0) >= 97 && button.counter.charCodeAt(0) <= 122)) {
-            const letter = button.counter;
-        
+	    //empty arrays
+	    setCorrectLetters([]);
+	    setWrongLetters([]);
+
+        const random = Math.floor(Math.random() * words.length);
+        selectedWord = words[random];
+    }
+
+    function activateButton(letter) {
+        if ((letter.charCodeAt(0) >= 97 && letter.charCodeAt(0) <= 122)) {
             if (selectedWord.includes(letter)) {
                 if (!correctLetters.includes(letter)) {
                     setCorrectLetters(currentLetters => [...currentLetters, letter])
@@ -77,32 +80,9 @@ function App() {
                     show(setShowNotification);
                 }
             }
-        }  
-    }, [button])
-
-    function playAgain() {
-	    setPlayable(true);
-
-	    //empty arrays
-	    setCorrectLetters([]);
-	    setWrongLetters([]);
-
-        const random = Math.floor(Math.random() * words.length);
-        selectedWord = words[random];
-        setButton({counter : "A"});
-    }
-
-    function activateButton(letter) {
-        if (letter === button) {
-            setButton({counter : "A"});
-            setButton({counter : letter});
-        } else {
-            setButton({counter : letter});
         }
     }
-
   
-
     return (
         <>
         <Header />
