@@ -24,7 +24,8 @@ function App() {
     const [correctLetters, setCorrectLetters] = useState([]);
     const [wrongLetters, setWrongLetters] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
-    
+    const [usedLetters, setUsedLetters] = useState([]); 
+
     useEffect(() => {
 	    const handleKeyDown = event => {
 	        const { key, keyCode } = event;
@@ -55,12 +56,18 @@ function App() {
     }, [correctLetters, wrongLetters, playable]); // useEffect funtion is only called when these variables are updated
 
     function playAgain() {
-	    setPlayable(true);
+        setPlayable(true);
 
-	    //empty arrays
+        usedLetters.forEach((letter) => {
+            var btn = document.getElementById(letter); 
+            btn.style.backgroundColor = null; 
+        })
+
+        //empty arrays
 	    setCorrectLetters([]);
 	    setWrongLetters([]);
-
+        setUsedLetters([]); 
+        
         const random = Math.floor(Math.random() * words.length);
         selectedWord = words[random];
     }
@@ -70,6 +77,7 @@ function App() {
             if (selectedWord.includes(letter)) {
                 if (!correctLetters.includes(letter)) {
                     setCorrectLetters(currentLetters => [...currentLetters, letter])
+                    console.log(letter);
                 } else {
                     show(setShowNotification);
                 }
@@ -81,6 +89,9 @@ function App() {
                 }
             }
         }
+        var btn = document.getElementById(letter); 
+        btn.style.backgroundColor = "#d3d3d3";
+        setUsedLetters(usedLetters => [...usedLetters, letter]);
     }
   
     return (
@@ -95,7 +106,7 @@ function App() {
             <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} 
             selectedWord= {selectedWord} setPlayable={setPlayable} playAgain={playAgain} />
             <Notification showNotification = {showNotification}/>
-            <Buttons activateButton = { activateButton }/>
+            <Buttons activateButton = { activateButton } />
         </div>
         </>
     );
