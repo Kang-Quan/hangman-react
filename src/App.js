@@ -85,16 +85,18 @@ function App() {
   
     return (
         <>
-        <Header />
-        <div className='game-container'>
-            <Figure wrongLetters={wrongLetters} />
-            <WrongLetters wrongLetters={wrongLetters}/>
-            <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+        <div className='scrollable-div'> 
+            <Header />
+            <div className='game-container'>
+                <Figure wrongLetters={wrongLetters} />
+                <WrongLetters wrongLetters={wrongLetters}/>
+                <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+            </div>
+            <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} 
+            selectedWord= {selectedWord} setPlayable={setPlayable} playAgain={playAgain} />
+            <Notification showNotification = {showNotification}/>
+            <Buttons activateButton = { activateButton }/>
         </div>
-        <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} 
-        selectedWord= {selectedWord} setPlayable={setPlayable} playAgain={playAgain} />
-        <Notification showNotification = {showNotification}/>
-        <Buttons activateButton = { activateButton }/>
         </>
     );
 }

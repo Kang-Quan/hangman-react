@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+.scrollable-div {
+  background-color: #34495e;
+  height: 100vh;
+  overflow: auto;
+  margin: 20px;
+  text-align: justify;
+  padding: 20px;
+}
+
 body {
   text-align: center;
   background-color: #34495e;
